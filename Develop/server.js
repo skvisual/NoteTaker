@@ -13,6 +13,7 @@ var PORT = 8080;
 // Middleware to handle parsing of the request string and converts to a json object. Later referred to as req.body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static('public'));
 
 //  Create .get routes
     
