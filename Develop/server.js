@@ -15,46 +15,37 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
-//  Create GET routes
+//  Create .get routes
     
-    // Returns the index page when requested
-app.get("/", (req, res) => {
+    // Return the index page
+app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "public/index.html"));
 });
     
-// Return the notes page when requested
-// app.get("/notes", (req, res) => {  
-//     res.sendFile(path.join(__dirname, "public/notes.html"));
-// });
-//sets the default page if there is no page found to the index.html page
-app.get("*", (req, res) => {
+// Return the notes page
+app.get("/notes", function(req, res) {
+    res.sendFile(path.join(__dirname, "public/notes.html"));
+});
+
+app.get("*", function(req, res) {
     res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
 // Create API get routes
-    //set up notes
-app.get("/api/notes", (req, res) => {
+    //set up the notes
+app.get("/api/notes", function(req, res) {
     //response to access notesDB variable in order to send to response.
-    notesDB.push(req.body);
-    console.log(notesDB)
+    res.json(notesDB);
 });
 
 // Create the API POST routes
-app.post("/api/notes", (req, res) => {
-    notesDB.push(req.body);
-    fs.readFile("./db/db.json", "utf-8", function (err){
-        req.body.push(notesDB);
-    })
-    fs.writeFile("./db/db.json", JSON.stringify(notesDB), function(er){
-        req.body
-  })
-        res.json(notesDB);
-});
+    app.post('/api/notes', function(req, res) {
+        
+        notesDB.push(req.body)
+        res.json(notesDB)
+    });
 
 // Create the API delete routes
-app.delete('/api/notes/:id',  (req, res) => {
-
-});
 
 
 
