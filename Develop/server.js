@@ -3,9 +3,11 @@ var http = require("http");
 var fs = require('fs');
 var path = require('path');
 var express = require('express');
-var notesDB = require('./db/db.json');
+// var data = fs.readFileSync('./db/db.json');
+// var notesDB = require('./db/db.json');
 // Instantiate a new express app utilizing the express() method.
 var app = express();
+const notesDB = [];
 
 //Decleare a port number for the server to find the application.
 var PORT = 8080;
@@ -39,11 +41,22 @@ app.get("/api/notes", function(req, res) {
 });
 
 // Create the API POST routes
-    app.post('/api/notes', function(req, res) {
-        
-        notesDB.push(req.body)
-        res.json(notesDB)
-    });
+app.post('/api/notes', function(req, res) {
+    
+  var newNote = req.body;
+
+//   console.log(req.body)
+
+  // console.log(newJedi);
+
+  // notesDB.push(newNote);
+  fs.appendFileSync('./db/db.json', JSON.stringify(newNote));
+  
+  // console.log(notesDB)
+
+
+  // res.json(newNote);
+});
 
 // Create the API delete routes
 
