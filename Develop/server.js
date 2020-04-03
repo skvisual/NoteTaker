@@ -47,12 +47,11 @@ app.post('/api/notes', function(req, res) {
 
 //   console.log(req.body)
 
-  // console.log(newJedi);
 
   // notesDB.push(newNote);
-  fs.appendFileSync('./db/db.json', JSON.stringify(newNote));
-  
-  // console.log(notesDB)
+  fs.appendFileSync('./db/db.json', JSON.stringify([newNote]));
+
+  console.log(newNote)
 
 
   // res.json(newNote);
